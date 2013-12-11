@@ -26,7 +26,11 @@
 	 * Dialog组件
 	 */
 	$.fn.dialog = function(para){
-		var _this = this;
+	    var _this, selector = this.selector;
+	    this.length ? _this = this : _this = (function(){
+	        $('<div id="'+selector.substr(1)+'"></div>').appendTo($("body").eq(0));
+	        return $(selector);
+	    })();
 		//默认传递参数
 		var defaults = {
 			title: "新信息窗口",  //标题
@@ -80,17 +84,15 @@
 				var len = $(".maskDiv").length;
 				//判断是否已经有生成遮罩的层了，如果有直接显示，没有就生成一个
 				if(len > 0){
-					$(".maskDiv").show();
-					$(".maskDiv").css("height",Math.max(this.getBodyHeight(),this.getDocHeight())+"px");
+					$(".maskDiv").show().css("height",Math.max(this.getBodyHeight(),this.getDocHeight())+"px");
 					return;
 				}
-				var newDiv = "<div id='masksDiv"+ len +"' class='maskDiv'></div>";
-				$("body").append(newDiv);
+				$("body").append("<div id='masksDiv"+ len +"' class='maskDiv'></div>");
 				$("#masksDiv"+len).css("height",Math.max(this.getBodyHeight(),this.getDocHeight()));
 			},
 			_addWindow:function(){  //生成窗口
 				var obj = arguments[0];
-				var _cssheight=(opts.height==0)?'auto':opts.height;
+				var _cssheight=(opts.height==0) ? 'auto' : opts.height;
 				obj.css({
 					left:parseInt(this.getDocWidth()/2-opts.width/2),
 					width:opts.width,
@@ -100,21 +102,18 @@
 				obj.removeClass().addClass(opts.dialogClass);
 				var newDiv="";
 				if(opts.showClose){
-					newDiv = [
-						'<a class="js-close close"></a>'
-					].join("");
+					newDiv = '<a class="js-close close"></a>';
 				}
 				$(obj.html(newDiv+opts.html)).appendTo('body');
 				//判断ie6时，定位高度
-				var diaH=(opts.height==0)?obj.height():opts.height;
+				var diaH=(opts.height==0) ? obj.height() : opts.height;
 				if( !($.browser.msie && parentInt($.browser.version) == 6)){
 					obj.css({
 						top:parseInt(this.getDocHeight()/2-diaH/2),
 						position:'fixed'
 					});
 				}
-				obj.show();
-				obj.find(".js-close").click(function(){
+				obj.show().find(".js-close").click(function(){
 					//关闭功能回调函数
 					if(opts.closeCallBack){
 						opts.closeCallBack();
@@ -142,16 +141,16 @@
 			getDocTop:function(){
 				return $(document).scrollTop();
 			},
-			getBodyWidth:function(){  //获取页面的宽度
+			getBodyWidth:function(){   //获取页面的宽度
 				return document.body.clientWidth;
 			},
 			getBodyHeight:function(){  //获取页面的高度
 				return document.body.clientHeight;
 			},
-			getDocWidth:function(){  //获取可见区域宽度
+			getDocWidth:function(){    //获取可见区域宽度
 				return document.documentElement.clientWidth;
 			},
-			getDocHeight:function(){  //获取可见区域高度
+			getDocHeight:function(){   //获取可见区域高度
 				return document.documentElement.clientHeight;
 			}
 		};
@@ -163,7 +162,6 @@
 			open:function(){
 				var obj = arguments[0];
 				$(".maskDiv").show();
-				
 				var eleH = document.documentElement.clientHeight;
 				//判断ie6时，定位高度
 				if(!($.browser.msie && parentInt($.browser.version) == 6)){
@@ -184,7 +182,7 @@
 	$.fn.win={
 	    //提示信息
 		alert:function(text,type){
-			//参数说明：text:提示文字信息，type:提示类型,有"ok"和"error"类型
+			//参数说明：text:提示文字信息，type:提示类型,有"ok"和"error"类型  "warm" 类型
 			var iconClass;
 			switch (type){
 				case "ok":
@@ -212,7 +210,6 @@
 					});
 				},3000);
 			}
-			
 		},
 		posAlert:function(obj,text){
 			//参数说明：obj:要定位的对象，text：显示的文字

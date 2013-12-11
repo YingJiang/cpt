@@ -11,8 +11,21 @@
         <script src="../scripts/k.components.js"></script>
     </head>
     <body>
-        <div>
-            hello world.
-        </div>
+        
+        <div id="demo"></div>
+        <script type="text/javascript">
+            $("#demo").dialog({
+                width: 500,       //宽度
+                height: 300,      //高度
+                open:!1,          //初始化是否显示
+                modal:!0,         //是否显示模态
+                show:"normal",    //显示的形式
+                html: '<div class="top"><span class="left title">新信息窗口</span></div><div class="body">Helo world.<br>...</div>',            //内容html
+                dialogClass:"dialog",    //dialog的样式
+                closeCallBack:null       //关闭回调函数
+            });
+            $(document).win.alert("您的作文写得真棒。","ok");
+        </script>
+        
     </body>
 </html>
