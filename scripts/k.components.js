@@ -180,7 +180,7 @@
 	 * 模拟window中的提示框 alert/comfirm/prompt
 	 */
 	$.fn.win={
-	    //提示信息
+	    //提示信息 alert
 		alert:function(text,type){
 			//参数说明：text:提示文字信息，type:提示类型,有"ok"和"error"类型  "warm" 类型
 			var iconClass;
@@ -211,38 +211,14 @@
 				},3000);
 			}
 		},
-		posAlert:function(obj,text){
-			//参数说明：obj:要定位的对象，text：显示的文字
-			var _left = parseInt(obj.offset().left)+parseInt(obj.width()/2)-120;
-			var _top = parseInt(obj.offset().top)-131;
-			var _html=[
-					'<div class="positionAlt altdiv png">'
-					,'<span class="altsuccess png">'+text+'</span>'
-					,'</div>'
-				].join("");
-			$("body").append(_html);
-			$(".altdiv").css({
-				top:_top,
-				left:_left
-			});
-			if(navigator.userAgent.indexOf("MSIE")>0){
-				setTimeout(function(){
-					$(".positionAlt").remove();
-				},2000);
-			}else{
-				setTimeout(function(){
-					$(".positionAlt").animate({opacity:0},1000,function(){
-					$(".positionAlt").remove();
-				});
-				},2000);
-			}
-		},
+		//定位提示tips
 		posTips:function(obj,text,way,pos,func,classNames){
-			/*参数说明：obj:要定位的对象，
-			 *text：显示的文字,
-			 *way:位置：上下(up/down),
-			 *pos:左中右(left/middle/right),
-			 *func:回调函数  宽度:223px
+			/* 参数说明：obj:要定位的对象
+			 * text：显示的文字
+			 * way:位置：上下(up/down)
+			 * pos:左中右(left/center/right)
+			 * func:回调函数  宽度:223px
+			 * classNames 样式名称
 			 */
 			setTimeout(function(){
 				var _left,_top,_html,classSpan;
@@ -256,7 +232,7 @@
 							_left = obj.offset().left-190;
 							classSpan = "tipsupward-l";
 							break;
-						case "middle":
+						case "center":
 							_left = _left-155 ;
 							classSpan = "tipsupward-c";
 							break;
@@ -274,7 +250,7 @@
 							_left = _left -25;
 							classSpan = "tipsdownward-l";
 							break;
-						case "middle":
+						case "center":
 							_left = _left - 100;
 							classSpan = "tipsdownward-c";
 							break;
@@ -287,7 +263,6 @@
 							return;
 					}
 				}
-				
 				_html=[
 					'<span class="newposTips" >'
 						,'<span class="tipstopbg '+classNames+'">'
@@ -306,11 +281,11 @@
 				//闪动效果 
 				if(way == "up"){
 					setTimeout(function(){
-						$(".tipstopbg").animate({	top:"-=5"},200).animate({top:"+=5"},200).animate({	top:"-=5"},200).animate({top:"+=5"},200);
+						$(".tipstopbg").animate({top:"-=5"},200).animate({top:"+=5"},200).animate({	top:"-=5"},200).animate({top:"+=5"},200);
 					},1000);
 				}else{
 					setTimeout(function(){
-						$(".tipstopbg").animate({	top:"+=5"},200).animate({top:"-=5"},200).animate({	top:"+=5"},200).animate({top:"-=5"},200);
+						$(".tipstopbg").animate({top:"+=5"},200).animate({top:"-=5"},200).animate({	top:"+=5"},200).animate({top:"-=5"},200);
 					},1000);
 				}
 				// 删除tips提示
@@ -321,6 +296,7 @@
 			},1500);
 			
 		},
+		//定位confirm
 		confirm:function(obj,text,func,way){
 			if($("p.btcontainer").length==1){
 				return;
@@ -361,7 +337,7 @@
 				$(this).parent().parent().parent().remove();
 			});
 		},
-		//居中
+		//相对居中confirm
 		confirmCenter:function(obj,text,func){
 			if($("div.altdivCenter").length==1) {
 				return;
@@ -371,8 +347,8 @@
 			var _top = $(window).scrollTop()+(document.documentElement.clientHeight)/2-120;
 			var _html=[
 					  '<div style="height:0;" class="confirmclass">'
-					  ,'<div class="altdivCenter png">'
-						,'<span class="altconfirm png">'+text+'</span>'
+					  ,'<div class="altdivCenter">'
+						,'<span class="altconfirm">'+text+'</span>'
 						,'<p class="btcontainer"><a href="javascript:void(0);" class="submitbtn confirm-btn">确认</a>&nbsp;<a href="javascript:void(0);" class="submitbtn cancel-btn">取消</a></p>'
 					  ,'</div>'
 					  ,'</div>'
@@ -398,8 +374,59 @@
 	};
 	
 	/**
-	 * Combox组件内容
+	 * 截取文字method 
 	 */
+    $.fn.fixStr = function(str, num, chars) {
+        if ( typeof str == "undefined") {
+            return;
+        }
+        var resStr;
+        var newStr = str.toString();
+        if (!chars) {
+            chars = "...";
+        }
+        var diLen = lenStr(newStr) - num;
+        if (diLen > 0) {
+            resStr = cutStr(newStr, num) + chars;
+        } else {
+            resStr = newStr;
+        }
+        return resStr;
+        function cutStr(str, num) {
+            var n = 0;
+            var p = [];
+            for (var i = 0, len = str.length; i < len; i++) {
+                if (n > num - 1) {
+                    break;
+                }
+                if (str.charCodeAt(i) > 255) {
+                    p.push(str.charAt(i));
+                    n += 2;
+                } else {
+                    p.push(str.charAt(i));
+                    n++;
+                }
+            }
+            return p.join("");
+        }
+
+        function lenStr(str) {
+            var k = 0;
+            for (var i = 0; i < str.length; i++) {
+                if (str.charCodeAt(i) > 255) {
+                    k += 2;
+                } else {
+                    k++;
+                }
+            }
+            return k;
+        }
+
+    };
+    
+    /**
+     * Combox组件内容
+     */
 	$.fn.combox=function(ele,para){  //ele:对象,para:参数设置
 		this.element = ele;
 		this.opts = $.extend({},$.fn.combox.defaults,para);
@@ -408,74 +435,54 @@
 	$.fn.combox.prototype = {
 		_init:function(){
 			var _this = this;
+			var thisVal = _this.element.val();
 			//给combox定义宽度和高度
 			var pannelWidth;
 			var addDiv = "";
 			if(_this.opts.width){
 				pannelWidth = _this.opts.width;
 			}else{
-				if(_this.element.width()<_this.opts.minWidth){
-					pannelWidth = _this.opts.minWidth;
-				}else{
-					pannelWidth = _this.element.width();
-				}
+			    _this.element.width()<_this.opts.minWidth ? pannelWidth = _this.opts.minWidth : pannelWidth = _this.element.width();
 			}
 			//是否显示select
 			if(!_this.opts.debug){
 				_this.element.hide();
 			}
 			var newEle = ["<span class='combox' style='width:"+pannelWidth+"px;'><input class='comboxText' style='width:"+(pannelWidth-37)+"px' readonly='readonly' type='text' value=''/>"
-			,"<span class='comboxArrow'></span>"
-			,"<input class='comboxValue' type='hidden' value='' /></span>"
-			].join("");
+                			,"<span class='comboxArrow'></span>"
+                			,"<input class='comboxValue' type='hidden' value='' /></span>"
+                			].join("");
 			//插入模拟的select
 			$(newEle).insertAfter(_this.element);
-			if(!_this.opts.pleaseSelect==""){
-				_this.element.next().find(".comboxText").eq(0).val(_this.opts.pleaseSelect);
-			}
 			//为Pannel中插入select内容
 			var options = _this.element.find("option");
 			var li="",ul="";
-			for(var i = 0;i<options.length;i++){
-				if(options.eq(i).val()!=""){
-					if(options.eq(i).attr("manage")==2){
-						li+=("<li class='group' value ='"+options.eq(i).val()+"' default='"+options.eq(i).text()+"'>"+$.fn.fixStr(options.eq(i).text(),18,"...")+"</li>");
-					}else{
-						li+=("<li value ='"+options.eq(i).val()+"' default='"+options.eq(i).text()+"'>"+$.fn.fixStr(options.eq(i).text(),18,"...")+"</li>");
-					}
-				}
-			}
+			options.each(function(index){
+			    if(options.eq(index).val()!=""){
+			        var cls = options.eq(index).attr("manage")==2? group : "";
+			        li += ("<li class='" + cls + "' value ='"+options.eq(index).val()+"' default='"+options.eq(index).text()+"'>"+$.fn.fixStr(options.eq(index).text(),18,"...")+"</li>");
+                }
+			});
 			//添加“add”区域
 			if(_this.opts.addList){
-				addDiv = "<div class='comboxAdd'>" +
-						"<span class='innerborder'>" +
-							"<input class='deftest' type='text/css' value='' size='10' maxlength='" + (_this.opts.maxlength == undefined ? "20" : "" + _this.opts.maxlength) + "'/>" +
-						"</span> <input class='addsort' type='button' value='添加新图格'/>" +
-						"</div>";
+				addDiv = "<div class='comboxAdd'><span class='innerborder'><input class='deftest' type='text/css' value='' size='10' maxlength='" + (_this.opts.maxlength == undefined ? "20" : "" + _this.opts.maxlength) + "'/></span> <input class='addsort' type='button' value='添加新图格'/></div>";
 			}
 			ul = "<div class='pannel' style='width:"+pannelWidth+"px'><ul style='width:"+pannelWidth+"px'>"+li+"</ul>"+addDiv+"</div>";
 			//插入pannel
-			//$("body").append(ul);
 			_this.element.next().append(ul);
-			
-			
 			//给pannel增加样式
 			$(".pannel li").each(function(){
-				$(this).bind("mouseover",function(){
-					$(this).removeClass("out");
-					$(this).addClass("over");
-				});
-				$(this).bind("mouseout",function(){
+			    $(this).hover(function(){
+					$(this).removeClass("out").addClass("over");
+			    },function(){
 					$(this).addClass("out");
-				});
+			    });
 			});
 			//设置可读
 			if(!this.opts.isSelect){
-				$(".combox").eq(comIdex).find(".comboxText").css({
-					"color":"#ccc"
-				});
+				$(".combox").eq(comIdex).find(".comboxText").css({"color":"#ccc"});
 			}
-			
+			this.setValue(_this.element,thisVal);
 			//设置可输入的select
 			_this.element.next().find(".comboxText").eq(0).keyup(function(){
 				if(_this.opts.allowAnyValue){
@@ -492,11 +499,7 @@
 					var value = $(this).val(); 
 					var len = $(".pannel").eq(dex).find("li").length;
 					$(".pannel").eq(dex).find("li").each(function(){
-						if($(this).text().indexOf(value)!=0){
-							$(this).hide();
-						}else{
-							$(this).show("slide");
-						}
+					    $(this).text().indexOf(value)!=0 ? $(this).hide() : $(this).show("slide");
 					});
 				}
 			});
@@ -563,13 +566,7 @@
 					});
 				});
 				function filter (str) {
-					str = str.replace(/&/g, '&amp;');
-					str = str.replace(/</g, '&lt;');
-					str = str.replace(/>/g, '&gt;');
-					str = str.replace(/'/g, '&acute;');
-					str = str.replace(/"/g, '&quot;');
-					str = str.replace(/\|/g, '&brvbar;');
-					return str;
+					return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&acute;').replace(/"/g, '&quot;').replace(/\|/g, '&brvbar;');
 				}
 				//添加按钮  鼠标滑动时效果
 				$(".pannel").eq(index).find(":last-child").find("input.addsort").hover(function(){
@@ -586,7 +583,6 @@
 						var inputReg = /^([a-zA-Z0-9\-_\u4e00-\u9fa5]){1,20}/;  //增加快速添加图格验证
 						//为空，不处理
 						if( val=="" || !inputReg.test(val)){return;}
-						
 						//执行回调函数
 						if(_this.opts.addListCallBack){
 							//alert(isDouble(val));
@@ -650,7 +646,7 @@
 					
 			});
 			$(document).click(function(event){
-				if (event.target.nodeName !="INPUT") {
+				if (event.target.nodeName.toLowerCase() !="input") {
 					$(".pannel").hide();
 				}
 			});
@@ -659,6 +655,7 @@
 			return obj.next().find(".comboxValue").eq(0).val();
 		},
 		setValue:function(obj,val){  //赋值给select
+		    if(val==""){return;}
 			var index = $(".combox").index(obj.next());
 			var combx = $(".combox").eq(index);
 			var pobj = $(".pannel").eq(index).find("ul>li"),ks=0;
@@ -734,7 +731,6 @@
 	};
 	$.fn.combox.defaults = {
 		debug:true,  //设置select可见
-		pleaseSelect:"",  //初始text
 		allowAnyValue:false,  //是否可以输入
 		position:"down",  //展示方向
 		isSelect:true,  //是否可以选择

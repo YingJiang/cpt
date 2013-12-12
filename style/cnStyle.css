@@ -153,3 +153,322 @@ html,body{
     background: url(http://a2.imimg.cn/r11013/images/array/alt_icon_07.png) no-repeat left -96px;
     padding-left: 24px;
 }
+
+/**
+ *     window alert
+ */
+.altdiv {
+    position: absolute;
+    z-index: 1002;
+    background: url(http://a8.imimg.cn/r1204/images/dialog/altdiv_03.png) no-repeat;
+    _background: url(http://a2.imimg.cn/r21695/images/dialog/altdiv_03.gif) no-repeat;
+    width: 240px;
+    height: 104px;
+    padding-top: 27px;
+    text-align: center;
+}
+.altdivCenter {
+    position: absolute;
+    z-index: 100002;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d7d7d7;
+    width: 240px;
+    height: 104px;
+    padding-top: 27px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(24,24,34,0.4);
+}
+.altdiv .btcontainer, .altdivCenter .btcontainer {
+    padding-top: 20px;
+    text-align: center;
+    word-spacing: 12px;
+}
+.altdiv .btsave, .altdivCenter .btsave {
+    text-align: center;
+    color: #fff;
+}
+.altdiv .btcancel, .altdivCenter .btcancel {
+    text-align: center;
+    color: #3a9;
+}
+a.confirm-btn {
+    background-position: left top;
+    color: #fff;
+}
+a.confirm-btn:hover {
+    background-position: -71px top;
+}
+a.confirm-btn:active {
+    background-position: -142px top;
+}
+a.cancel-btn {
+    background-position: left bottom;
+    color: #fff;
+}
+a.cancel-btn:hover {
+    background-position: -71px bottom;
+    color: #3a9;
+}
+a.cancel-btn:active {
+    background-position: -142px bottom;
+    color: #fff;
+}
+a.uncancel-btn {
+    background-position: -213px bottom;
+    color: #fff;
+    text-shadow: 0 1px 0 #fff;
+}
+a.submitbtn, span.submitbtn {
+    background: url(http://a7.imimg.cn/r3547/images/button/small_btn.gif);
+    background-repeat: no-repeat;
+    line-height: 34px;
+    height: 34px;
+    display: inline-block;
+    width: 57px;
+    font-size:12px;
+    vertical-align: middle;
+    text-align: center;
+    zoom: 1;
+    font-size:12px;
+    text-decoration:none;
+}
+a.submitbtn:hover, span.submitbtn:hover {
+    text-decoration: none;
+}
+.altconfirm, .altsuccess {
+    background: url(http://a2.imimg.cn/r11013/images/array/alt_icon_07.png) no-repeat;
+    _background: url(http://a5.imimg.cn/r22728/images/array/alt_icon_07.gif) no-repeat;
+    font-size: 14px;
+}
+.altconfirm {
+    padding-left: 22px;
+    background-position: 0 -34px;
+    line-height: 20px;
+    display: inline-block;
+    margin: auto;
+}
+.altconfirmup {
+    background-image: url(http://a4.imimg.cn/r8156/images/dialog/altdiv_04.png);
+}
+.newposTips {
+    position: relative;
+    float: none;
+    display: inline-block;
+    z-index: 3;
+}
+.tipstopbg {
+    position: absolute;
+    float: none;
+    width: 223px;
+    padding-top: 17px;
+    display: block;
+    background: url(http://a3.imimg.cn/r4479/images/array/zhimeitips_03.png) no-repeat left top;
+    _background: url(http://a6.imimg.cn/r4458/images/array/zhimeitips_03.gif) no-repeat left top;
+}
+.tipstopbg span {
+    font-size: 14px;
+    font-family: "宋体";
+}
+.tipsbottombg {
+    width: 191px;
+    padding: 0 16px 16px;
+    float: none;
+    display: block;
+    background: url(http://a4.imimg.cn/r4479/images/array/zhimeitips_05.png) no-repeat left bottom;
+    _background: url(http://a7.imimg.cn/r4458/images/array/zhimeitips_05.gif) no-repeat left bottom;
+}
+.tipsarray {
+    position: absolute;
+    float: none;
+    width: 19px;
+    height: 12px;
+    display: block;
+    background: url(http://a1.imimg.cn/r4479/images/array/zhimeitips_tarr_02.png) no-repeat left top;
+    _background: url(http://a4.imimg.cn/r4479/images/array/zhimeitips_tarr_02.gif) no-repeat left top;
+}
+.tipsupward-l {
+    left: 20px;
+    top: 0;
+}
+.tipsupward-c {
+    left: 92px;
+    top: 0;
+}
+.tipsupward-r {
+    right: 75px;
+    top: 0;
+}
+.tipsdownward-l, .tipsdownward-c {
+    background-position: right top;
+    left: 20px;
+    bottom: -10px;
+    _bottom: -11px;
+    height: 14px;
+}
+.tipsdownward-c {
+    left: 92px;
+}
+.tipsdownward-r {
+    background-position: right top;
+    right: 20px;
+    bottom: -10px;
+    _bottom: -11px;
+    height: 14px;
+}
+.combox {
+    position: relative;
+    display: inline-block;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    border: 1px #d9d9d9 solid;
+}
+.combox:hover {
+    border: 1px solid #65C5B3;
+}
+.comboxText {
+    cursor: pointer;
+    border: 0 none;
+    height: 28px;
+    line-height: 28px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background: url(http://a7.imimg.cn/r1361/scripts/css/images/select_bg.gif) repeat-x;
+    padding-left: 11px;
+    border-right: 1px solid #ededed;
+    font-size: 14px;
+}
+.comboxArrow {
+    display: inline-block;
+    background-image: url(http://a8.imimg.cn/r1347/scripts/css/images/arrow.gif);
+    cursor: pointer;
+    overflow: hidden;
+    width: 25px;
+    height: 28px;
+    vertical-align: top;
+    _margin-top: -1px;
+}
+.pannel {
+    position: absolute;
+    display: none;
+    background: #fff;
+    border: 1px #d7d6d6 solid;
+    overflow: hidden;
+    z-index: 100;
+}
+.pannel ul {
+    overflow: auto;
+    font-size: 14px;
+}
+.pannel li {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 0 0 11px;
+    cursor: pointer;
+}
+.pannel li.over {
+    background-color: #eff8f6;
+}
+.pannel li.out {
+    background-color: #fff;
+}
+.pannel li.select {
+    background-color: #eff8f6;
+}
+.pannel li.group {
+    background-image: url(http://a1.imimg.cn/r3899/images/dialog/group_3.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+.comboxDisable {
+    display: inline-block;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px #000 solid;
+    white-space: nowrap;
+    border: 1px #ccc solid;
+}
+.comboxDisable .comboxText {
+    color: #ccc;
+    border: 0 none;
+    height: 20px;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+.comboxDisable .comboxArrow {
+    display: inline-block;
+    background: url(http://a8.imimg.cn/r1347/scripts/css/images/arrow.gif) center 2px no-repeat #eee;
+    cursor: pointer;
+    overflow: hidden;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+.comboxAdd {
+    background: #eff8f6;
+    padding: 5px 0 5px 11px;
+}
+.comboxAdd .addsort {
+    background: url(http://a5.imimg.cn/r1361/scripts/css/images/button.gif) no-repeat left bottom;
+    width: 104px;
+    height: 34px;
+    display: inline-block;
+    line-height: 34px;
+    color: #1d8b74;
+    padding-left: 31px;
+    vertical-align: middle;
+    margin-left: 3px;
+    border: none;
+}
+.comboxAdd .addsorthover {
+    background: url(http://a5.imimg.cn/r1361/scripts/css/images/button.gif) no-repeat left top;
+    text-decoration: none;
+}
+.deftest {
+    width: 100px;
+    border: 1px solid #aaa;
+    padding-left: 6px;
+    height: 26px;
+    line-height: 26px;
+    background: #fff;
+    font-family: Tahoma, Arial, Helvetica, STHeiti, "微软雅黑";
+    font-size: 16px;
+    vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

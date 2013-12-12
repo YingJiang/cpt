@@ -9,11 +9,27 @@
         <link href="../style/cnStyle.css" rel="stylesheet" />
         <script src="../scripts/jquery.min.js"></script>
         <script src="../scripts/k.components.js"></script>
+        <style type="text/css">
+            html,body{height:100%;}
+        </style>
     </head>
     <body>
-        
-        <div id="demo"></div>
+        <br><br><br><br><br><br><br><br><br><br>
+        <div id="demo">abc</div>
+        <div>
+            <span>
+                <select id="sel">
+                    <option>请选择类型</option>
+                    <option value="101">学生</option>
+                    <option value="102">工人</option>
+                    <option value="103">农民</option>
+                    <option value="104">军人</option>
+                    <option value="105">儿童</option>
+                </select>
+            </span>
+        </div>
         <script type="text/javascript">
+        /**
             $("#demo").dialog({
                 width: 500,       //宽度
                 height: 300,      //高度
@@ -24,7 +40,31 @@
                 dialogClass:"dialog",    //dialog的样式
                 closeCallBack:null       //关闭回调函数
             });
-            $(document).win.alert("您的作文写得真棒。","ok");
+            */
+            //$(document).win.alert("您的作文写得真棒。","ok");
+            //$(document).win.confirmCenter($("#demo"),"提示的文字信息在这里。",function(){  alert(1); });
+            //$(document).win.confirm($("#demo"),"提示的文字信息在这里。",function(){  alert(1); },"down");
+            //$(document).win.posTips($("#demo"),"提示的文字信息在这里。","up","center",function(){},"");
+            
+            var sel = new $.fn.combox($("#sel"),{
+                debug:!0,  //设置select可见
+                allowAnyValue:false,  //是否可以输入
+                position:"down",  //展示方向
+                isSelect:!0,  //是否可以选择
+                maxHeight:150,  //最大高度
+                minWidth:240,  //最小宽度
+                width:null,  //宽度
+                addList:!0,  //是否有添加选项功能
+                lock:!1,  //锁定，不可点击
+                addListCallBack:null,  //添加选项回调函数
+                selectCallBack:function(val){
+                    //console.log(sel.getValue($("#sel")));
+                }  //选中回调函数
+            });
+            
+            
+            
+            
         </script>
         
     </body>
