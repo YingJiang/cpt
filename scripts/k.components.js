@@ -14,11 +14,8 @@
  * 5、textInput  输入框sugestion
  * 6、validate  表单验证
  * 7、userOperation对象方法
- * 8、showTimes 倒计时
- * 9、delayImg 图片延迟加载
- * 10、asynchronous js 动态加载js文件
- * 11、ad images 图片轮播
- * 12、user card 名片功能
+ * 8、timeDown 倒计时
+ * 9、user card 名片功能
  */
 
 (function($){
@@ -744,7 +741,7 @@
 	};
 	
 	/**
-	 * Tab 组件
+	 * Tabs 组件
 	 **/
 	var isShow = false;
 	$.fn.tab = function(options){
@@ -807,7 +804,6 @@
 		var _this=this;
 		switch(opts.showType){
 			case "show":  //正常的显示和隐藏
-			    alert(opts.contentList);
 				$(opts.contentList).hide();
 				//$(opts.contentList+":visible").hide();
 				if(opts.callBackHideEvent){
@@ -940,8 +936,8 @@
 	/**
 	 * 表单验证
 	 **/
-	im.user = {};
-	im.user.validate = {
+	$.fn.user = {};
+	$.fn.user.validate = {
 		//检查昵称
 		thisObjError:function(obj , val){
 			this.animate($(obj).parent());
@@ -1039,7 +1035,6 @@
 			var sta = true;
 			var ajaxSta = true;
 			var _this = $(obj) ;
-			//var _this =$(obj).addClass('errortest').parent().parent().next(".errortips");
 			//过滤中文字
 			if(str){
 				sta = this.checkCn(str);
@@ -1051,7 +1046,6 @@
 					url:"/captcha/check?captcha="+str,
 					dataType:"text",
 					success:function(data){
-						//alert(eval(eval(data)))
 						if(data){
 							_this.removeClass('errortest').parent().parent().parent().find('.stata').hide();
 							return true;
@@ -1073,11 +1067,7 @@
 		checkLength:function(str){
 			var len=0;
 			for(var i=0;i<str.length;i++){
-				if(str.charCodeAt(i)>255){
-					len+=2;
-				}else{
-					len++;
-				}
+			    str.charCodeAt(i)>255 ? len+=2 : len++;
 			}
 			return len;
 		},
@@ -1142,11 +1132,8 @@
 			var _this = this ;
 			var regexp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z\u4e00-\u9fa5]{2,4})$/;
 			//过滤中文字
-			//alert(str);
 			if(!str){
 				this.thisObjError(obj ,'邮箱不能为空');
-				
-				//return false ;
 			}else{
 				if(!regexp.test(str)){
 					this.thisObjError(obj ,'您的电子邮箱格式错误');
@@ -1168,14 +1155,12 @@
 			}
 		
 		},
-		
 		openEmail:function(obj){
 			var str = $(obj).val();
 			var sta = true;
 			var _this =this;
 			//过滤中文字
 			if(str){
-				//alert(1);
 				sta = this.checkCn(str);
 			}else{
 				_this.thisObjError(obj ,'邮箱不能为空');
@@ -1188,7 +1173,6 @@
 					if(typeof eval(data).result == "undefined" || typeof eval(data).result == ""){
 						_this.thisObjError(obj ,'邮箱不存在，请重新输入');
 					}else{
-						//this.animate($(obj).parent());
 						_this.thisObjTrue(obj);
 					}
 				},"json");
@@ -1197,10 +1181,8 @@
 				_this.thisObjError(obj ,'邮箱格式不正确');
 			}
 		},
-		
 		haveEmail:function(obj){
 			this.thisObjError(obj ,'该帐号已经被绑定！');
-			
 		},
 		errorPassword:function(obj){
 			this.animate($(obj).parent());
@@ -1224,7 +1206,7 @@
 			function _check(str){
 				//过滤中文字
 				if(str){
-					sta = im.user.validate.checkCn(str);
+					sta = $.fn.user.validate.checkCn(str);
 				}
 				if (str.indexOf("@")>1 && str.indexOf(".")>1 && sta) {
 					return true;
@@ -1283,41 +1265,25 @@
 					if($(this).attr("checked")=="checked"){
 						var _sta = func($(this));
 						status[num] = _sta;
-						if(getTrue(status)){
-							opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-						}else{
-							opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-						}
+						getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 					}
 					$(this).click(function(){
 						var _sta = func($(this));
 						status[num] = _sta;
-						if(getTrue(status)){
-							opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-						}else{
-							opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-						}
+						getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 					});
 				});
 			}
 			function hiddenText(obj,func,num){
 				var _sta = func(obj);
 				status[num] = _sta;
-				if(getTrue(status)){
-					opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-				}else{
-					opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-				}
+				getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 			}
 			//combox检测
 			function comboxCheck(obj,func,num){
 				var _sta = func(obj);
 				status[num] = _sta;
-				if(getTrue(status)){
-					opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-				}else{
-					opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-				}
+				getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 			}
 			//检查Text,Textarea表单
 			var thisTime = null;
@@ -1325,11 +1291,7 @@
 				if(sta){
 					var _sta = func(obj);
 					status[num] = _sta;
-					if(getTrue(status)){
-						opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-					}else{
-						opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-					}
+					getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 				}else{
 					status[num] = false;
 					opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
@@ -1343,11 +1305,7 @@
 					var _sta = func($(this));
 					thisTime = setTimeout(function(){
 						status[num] = _sta;
-						if(getTrue(status)){
-							opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-						}else{
-							opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-						}
+						getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 						thisTime = null;
 					},30);
 				});
@@ -1361,11 +1319,7 @@
 						var _sta = func($(this),true);
 						thisTime = setTimeout(function(){
 							status[num] = _sta;
-							if(getTrue(status)){
-								opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-							}else{
-								opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-							}
+							getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 							thisTime = null;
 						},30);
 					}
@@ -1375,19 +1329,11 @@
 			function selectCheck(obj,func,num){
 				var _sta = func(obj);
 				status[num] = _sta;
-				if(getTrue(status)){
-					opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-				}else{
-					opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-				}
+				getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 				obj.change(function(){
 					var _sta = func($(this));
 					status[num] = _sta;
-					if(getTrue(status)){
-						opts.element.removeClass(opts.closeClass).addClass(opts.openClass);
-					}else{
-						opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
-					}
+					getTrue(status) ? opts.element.removeClass(opts.closeClass).addClass(opts.openClass) : opts.element.removeClass(opts.openClass).addClass(opts.closeClass);
 				});
 			}
 			//检查数组里集合为True还是为False
@@ -1415,7 +1361,6 @@
 			}
 			return sta;
 		}
-		
 	};
 	
 	/**
@@ -1446,7 +1391,6 @@
 				$(this).find("span:nth-child(1)").addClass("true");
 				userId.push($(this).attr("userId"));
 			}
-			
 		});
 	};
 	$.fn.userOperation.select = function(id,scrtop){
@@ -1517,537 +1461,425 @@
 			//更新装载内容的容器高度
 			document.getElementById(autoLayout.defaults.contentID).style.height = Math.max.apply(Math, autoLayout.colArray) + "px";
 		}
-		
 	};
 	$.fn.userOperation.deleteBoard = function(parentId,dataId){
-		
 		$("#"+parentId).find("div[dataId="+dataId+"]").remove();
 		//更新boards坐标
 		autoLayout.debounceFunc( autoLayout.updateDiv(), 30, true);
 	};
+	
+	/**
+     *倒计时功能实现
+     */
+    $.fn.timeDown = function(startTime,lastTime,step){
+        this.startTime = startTime;  //开始时间
+        this.lastTime = lastTime;  //到期时间
+        this.step = step || 1000;  //执行的阶段时间，一般是1秒，即1000
+    };
+    $.fn.timeDown.prototype = {
+        atTime:function(a,b){
+            //参数说明：a:到期回调方法，b:倒计时回调方法
+            var that = this;
+            var timeold = (that.lastTime - that.startTime);
+            var msPerDay = 24 * 60 * 60 * 1000;
+            var e_daysold = timeold / msPerDay;
+            var daysold = Math.floor(e_daysold);  //天
+            var e_hrsold = (e_daysold - daysold) * 24;
+            var hrsold = Math.floor(e_hrsold);  //小时
+            var e_minsold = (e_hrsold - hrsold) * 60;
+            var minsold = Math.floor((e_hrsold - hrsold) * 60);  //分钟
+            var seconds = Math.floor((e_minsold - minsold) * 60);  //秒
+            var msSeconds = Math.ceil(Math.floor(((e_minsold - minsold) * 60 - seconds)*1000)/100)*10;
+            if(msSeconds ==100){
+                msSeconds = 99;
+            }
+            if(that.startTime >= that.lastTime) {
+                arguments[0]();
+            }else{
+                arguments[1](that.getStr(daysold),that.getStr(hrsold),that.getStr(minsold),that.getStr(seconds),that.getStr(msSeconds));
+                that.startTime = parseInt(that.startTime) +that.step;
+                setTimeout(function(){that.atTime(a,b);}, that.step);
+            }
+        },
+        getStr:function(num){
+            return num.toString().length < 2 ? "0" + num : num ;
+        }
+    };
+
+    /**
+     * @(at)功能 
+     */
+    $.fn.usercard = function(o){
+        var friendsData = [];
+        // 上面是数据
+        var config = {
+                boxID:"autoTalkBox",
+                valuepWrap:'autoTalkText',
+                wrap:'recipientsTips',
+                listWrap:"autoTipsUserList",
+                position:'autoUserTipsPosition',
+                positionHTML:'<span id="autoUserTipsPosition">&nbsp;123</span>',
+                className:'autoSelected'
+            };
+        var html = '<div id="autoTalkBox"style="z-index:-2000;top:$top$px;left:$left$px;width:$width$px;height:$height$px;z-index:1;position:absolute;scroll-top:$SCTOP$px;overflow:hidden;overflow-y:auto;visibility:hidden;word-break:break-all;word-wrap:break-word;*letter-spacing:0.6px;"><span id="autoTalkText"></span></div><div id="recipientsTips" class="atusers"><p>选择昵称或轻敲空格完成输入</p><ul id="autoTipsUserList"></ul></div>';
+        //var listHTML = '<li><a title="$ACCOUNT$" rel="$ID$" >$NAME$(@$SACCOUNT$)</a></li>';
+        var listHTML = '<li><a title="$ACCOUNT$" rel="$ID$" >$SACCOUNT$</a></li>';
+        /*
+         * D 基本DOM操作
+         * $(ID)
+         * DC(tn) TagName
+         * EA(a,b,c,e)
+         * ER(a,b,c)
+         * BS()
+         * FF
+         */
+        var D = {
+            $:function(ID){
+                return document.getElementById(ID);
+            },
+            DC:function(tn){
+                return document.createElement(tn);
+            },
+            EA:function(a, b, c, e) {
+                if (a.addEventListener) {
+                    if (b == "mousewheel") {
+                        b = "DOMMouseScroll";
+                    }
+                    a.addEventListener(b, c, e);
+                    return true;
+                } else {
+                    return a.attachEvent ? a.attachEvent("on" + b, c) : false;
+                }
+            },
+            ER:function(a, b, c) {
+                if (a.removeEventListener) {
+                    a.removeEventListener(b, c, false);
+                    return true;
+                } else{
+                    return a.detachEvent ? a.detachEvent("on" + b, c) : false;
+                }
+            },
+            BS:function(){
+                var db=document.body,
+                    dd=document.documentElement,
+                    top = db.scrollTop+dd.scrollTop,
+                    left = db.scrollLeft+dd.scrollLeft;
+                return { 'top':top , 'left':left };
+            },
+            
+            FF:(function(){
+                var ua=navigator.userAgent.toLowerCase();
+                return /firefox\/([\d\.]+)/.test(ua);
+            })()
+        };
+        /*
+         * TT textarea 操作函数
+         * info(t) 基本信息
+         * getCursorPosition(t) 光标位置
+         * setCursorPosition(t, p) 设置光标位置
+         * add(t,txt) 添加内容到光标处
+         */
+        var TT = {
+            info:function(t){
+                var o = t.getBoundingClientRect();
+                var w = t.offsetWidth;
+                var h = t.offsetHeight;
+                return {top:o.top, left:o.left, width:w, height:h};
+            },
+            getCursorPosition: function(t){
+                if (document.selection) {
+                    t.focus();
+                    var ds = document.selection;
+                    var range = null;
+                    range = ds.createRange();
+                    var stored_range = range.duplicate();
+                    stored_range.moveToElementText(t);
+                    stored_range.setEndPoint("EndToEnd", range);
+                    t.selectionStart = stored_range.text.length - range.text.length;
+                    t.selectionEnd = t.selectionStart + range.text.length;
+                    return t.selectionStart;
+                } else {
+                    return t.selectionStart;
+                }
+            },
+            setCursorPosition:function(t, p){
+                var n = p == 'end' ? t.value.length : p;
+                if(document.selection){
+                    var range = t.createTextRange();
+                    range.moveEnd('character', -t.value.length);         
+                    range.moveEnd('character', n);
+                    range.moveStart('character', n);
+                    range.select();
+                }else{
+                    t.setSelectionRange(n,n);
+                    t.focus();
+                }
+            },
+            add:function (t, txt){
+                var val = t.value;
+                var wrap = wrap || '' ;
+                if(document.selection){
+                    document.selection.createRange().text = txt;  
+                } else {
+                    var cp = t.selectionStart;
+                    var ubbLength = t.value.length;
+                    t.value = t.value.slice(0,t.selectionStart) + txt + t.value.slice(t.selectionStart, ubbLength);
+                    this.setCursorPosition(t, cp + txt.length); 
+                };
+            },
+            del:function(t, n){
+                var p = this.getCursorPosition(t);
+                var s = t.scrollTop;
+                t.value = t.value.slice(0,p - n) + t.value.slice(p);
+                this.setCursorPosition(t ,p - n);
+                D.FF && setTimeout(function(){t.scrollTop = s;},10);
+            }
+        };
+        /*
+         * DS 数据查找
+         * inquiry(data, str, num) 数据, 关键词, 个数
+         */
+        var DS = {
+            inquiry:function(data, str, num){
+                //if(str == '') return friendsData.slice(0, num);
+                var sd = [];
+                var i = 0;
+                if(str == ''){
+                    while(sd.length < num && i < data.length){
+                        sd.push(data[i]);
+                        i++;
+                    }   
+                }else{
+                    var reg = new RegExp(str, 'i');
+                    //var dataUserName = {};
+                    while(sd.length < num && i < data.length){
+                        //if(reg.test(data[i]['user'])){
+                            sd.push(data[i]);
+                            //dataUserName[data[i]['user']] = true;
+                        //}
+                        i++;
+                    }   
+                }
+                return sd;
+            }
+        };
+        /*
+         * selectList
+         * _this
+         * index
+         * list
+         * selectIndex(code) code : e.keyCode
+         * setSelected(ind) ind:Number
+         */
+        var selectList = {
+            _this:null,
+            index:-1,
+            list:null,
+            selectIndex:function(code){
+                if(D.$(config.wrap).style.display == 'none'){
+                    return true;
+                } 
+                var i = selectList.index;
+                switch(code){
+                   case 40:
+                     i = i + 1;
+                     break;
+                   case 38:
+                     i = i - 1;
+                     break;
+                   case 13:
+                    return selectList._this.enter();
+                    break;
+                }
+        
+                i = i >= selectList.list.length ? 0 : i < 0 ? selectList.list.length-1 : i;
+                return selectList.setSelected(i);
+            },
+            setSelected:function(ind){
+                if(selectList.index >= 0) selectList.list[selectList.index].className = '';
+                try{
+                    selectList.list[ind].className = config.className;
+                }catch(e){}
+                selectList.index = ind;
+                return false;
+            }
+        
+        };
+        var AutoTips = function(A){
+            var elem = A.id ? D.$(A.id) : A.elem;
+            var checkLength = 5;
+            var _this = {};
+            var key = '';
+            _this.start = function(){
+                if(!D.$(config.boxID)){
+                    var h = html.slice();
+                    var info = TT.info(elem);
+                    var div = D.DC('DIV');
+                    var bs = D.BS();
+                    h = h.replace('$top$',(info.top + bs.top)).
+                            replace('$left$',(info.left + bs.left)).
+                            replace('$width$',info.width).
+                            replace('$height$',info.height).
+                            replace('$SCTOP$','0');
+                    div.innerHTML = h;
+                    document.body.appendChild(div);
+                }else{
+                    _this.updatePosstion();
+                }
+            };
+            _this.keyupFn = function(e){
+                var e = e || window.event;
+                if(e.type == "keyup"){
+                    if(!e.keyCode){
+                        return;
+                    }
+                }
+                var code = e.keyCode;
+                if(code == 38 || code == 40 || code == 13) {
+                    if(code==13 && D.$(config.wrap).style.display != 'none'){
+                        _this.enter();
+                    }
+                    return false;
+                }
+                var cp = TT.getCursorPosition(elem);
+                if(!cp) {
+                    return _this.hide();
+                }
+                var valuep = elem.value.slice(0, cp);
+                var val = valuep.slice(-checkLength);
+                //var chars = val.match(/(\w+)?@(\w|[\u4E00-\u9FA5\uF900-\uFA2D]+)$|@$/);
+                var chars = val.match(/(\w+)?@(\w+)|([\u4E00-\u9FA5\uF900-\uFA2D]+)$|@$/);
+                if(chars == null) {
+                    return _this.hide();
+                }
+                //var b_char = chars[2] ? chars[2] : '';
+                var b_char;
+                if(chars[2]){
+                    b_char = chars[2];
+                }else if(chars[3]){
+                    b_char = chars[3];
+                }else{
+                    b_char = "";
+                }
+                D.$(config.valuepWrap).innerHTML = valuep.slice(0,valuep.length - b_char.length).replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;') + config.positionHTML;
+                _this.showList(b_char);
+            };
+            _this.showList = function(b_char){
+                key = b_char;
+                //请求数据接口
+                $.ajax({
+                    type:"get",
+                    url:uri("URI_FANS_FRIENDS_NICKNAME", 10007),
+                    data:{chars:key},
+                    dataType:"json",
+                    success:function(datas){
+                        var friendsData = [];
+                        for(var i = 0,len=datas.length;i<len;i++){
+                            friendsData[i] = {};
+                            friendsData[i].user = datas[i];
+                            friendsData[i].name = datas[i];
+                        }
+                        var data = DS.inquiry(friendsData, b_char, 8);//显示数据的个数
+                        var html = listHTML.slice();
+                        var h = '';
+                        var len = data.length;
+                        if(len == 0){
+                            _this.hide();
+                            return;
+                        }
+                        var reg = new RegExp(b_char);
+                        var em = '<em>'+ b_char +'</em>';
+                        for(var i=0; i<len; i++){
+                            var hm = data[i]['user'].replace(reg,em);
+                            h += html.replace(/\$ACCOUNT\$|\$NAME\$/g,data[i]['name']).
+                                        replace('$SACCOUNT$',hm).replace('$ID$',data[i]['user']);
+                        }
+                        _this.updatePosstion();
+                        var p = D.$(config.position).getBoundingClientRect();
+                        var bs = D.BS();
+                        var d = D.$(config.wrap).style;
+                        d.top = p.top + 20 + bs.top + 'px';
+                        d.left = p.left - 5 + 'px';
+                        D.$(config.listWrap).innerHTML = h;
+                        _this.show();
+                    }
+                });
+            };
+            _this.KeyDown = function(e){
+                var e = e || window.event;
+                var code = e.keyCode;
+                if(code == 38 || code == 40 || code == 13){
+                    return selectList.selectIndex(code);
+                }
+                return true;
+            };
+            _this.updatePosstion = function(){
+                var p = TT.info(elem);
+                var bs = D.BS();
+                var d = D.$(config.boxID).style;
+                d.top = p.top + bs.top +'px';
+                d.left = p.left + bs.left + 'px';
+                d.width = p.width+'px';
+                d.height = p.height+'px';
+                D.$(config.boxID).scrollTop = elem.scrollTop;
+            };
+            _this.show = function(){
+                selectList.list = D.$(config.listWrap).getElementsByTagName('li');
+                selectList.index = -1;
+                selectList._this = _this;
+                _this.cursorSelect(selectList.list);
+                elem.onkeydown = _this.KeyDown;
+                D.$(config.wrap).style.display = 'block';   
+                $("#autoTipsUserList li").die().live("click",function(){
+                    TT.del(elem, key.length, key);
+                    TT.add(elem, $(this).find("a").attr("title")+' ');
+                    setTimeout(_this.hide, 100);
+                    //_this.hide();
+                });
+            };
+            _this.cursorSelect = function(list){
+                for(var i=0; i<list.length; i++){
+                    list[i].onmouseover = (function(i){
+                        return function(){selectList.setSelected(i);};
+                    })(i);
+                    //list[i].onclick = _this.enter;
+                }
+            };
+            _this.hide = function(){
+                selectList.list = null;
+                selectList.index = -1;
+                selectList._this = null;
+                D.ER(elem, 'keydown', _this.KeyDown);
+                D.$(config.wrap).style.display = 'none';
+            };
+            _this.bind = function(){
+                elem.onkeyup = _this.keyupFn;
+                elem.onclick = _this.keyupFn;
+                elem.onblur = function(){
+                    setTimeout(_this.hide, 300);
+                };
+                //elem.onkeyup= fn;
+                //D.EA(elem, 'keyup', _this.keyupFn, false)
+                //D.EA(elem, 'keyup', fn, false)
+                //D.EA(elem, 'click', _this.keyupFn, false);
+                //D.EA(elem, 'blur', function(){setTimeout(_this.hide, 100)}, false);
+            };
+            _this.enter = function(){
+                TT.del(elem, key.length, key);
+                TT.add(elem, selectList.list[selectList.index].getElementsByTagName('A')[0].rel+' ');
+                _this.hide();
+                return false;
+            };
+            return _this;
+        };
+        var userAutoTips = function(args){
+                var a = AutoTips(args);
+                a.start();
+                a.bind();
+        };
+        userAutoTips(o);
+    };
+
 })(jQuery);
 
-/**
- *倒计时功能实现
- */
-im.zm.showTimes = function(startTime,lastTime,obj,step){
-	this.startTime = startTime;  //开始时间
-	this.lastTime = lastTime;  //到期时间
-	this.obj = obj;  //显示内容容器
-	this.step = step;  //执行的阶段时间，一般是1秒，即1000
-};
-im.zm.showTimes.prototype = {
-	atTime:function(a,b){
-		//参数说明：a:到期回调方法，b:倒计时回调方法
-		var that = this;
-		var timeold = (that.lastTime - that.startTime);
-		var msPerDay = 24 * 60 * 60 * 1000;
-		var e_daysold = timeold / msPerDay;
-		var daysold = Math.floor(e_daysold);  //天
-		var e_hrsold = (e_daysold - daysold) * 24;
-		var hrsold = Math.floor(e_hrsold);  //小时
-		var e_minsold = (e_hrsold - hrsold) * 60;
-		var minsold = Math.floor((e_hrsold - hrsold) * 60);  //分钟
-		var seconds = Math.floor((e_minsold - minsold) * 60);  //秒
-		var msSeconds = Math.ceil(Math.floor(((e_minsold - minsold) * 60 - seconds)*1000)/100)*10;
-		if(msSeconds ==100){
-			msSeconds = 99;
-		}
-		if(that.startTime >= that.lastTime) {
-			arguments[0]();
-		}else{
-			arguments[1](that.getStr(daysold),that.getStr(hrsold),that.getStr(minsold),that.getStr(seconds),that.getStr(msSeconds));
-			that.startTime = parseInt(that.startTime) +that.step;
-			window.setTimeout(function(){that.atTime(a,b);}, that.step);
-		}
-	},
-	getStr:function(num){
-		return num.toString().length < 2 ? "0" + num : num ;
-	}
-};
-/**
- *图片延迟加载方法
- */
-im.zm.delayImg = {
-	init:function(scrollObj){
-		var that = this,t;
-		that.imgObj = $("img[data-delay]");
-		var clientH = document.documentElement.clientHeight;
-		var scrTop = $(scrollObj).scrollTop();
-		if(!that.imgObj.length){return;}
-		this.imgObj.each(function(){
-			if(typeof scrollObj == "string"){
-				t = $(this).offset().top;
-				scrTop = $(scrollObj).offset().top;
-			}else{
-				t = $(this).offset().top;
-			}
-			if(t < clientH + scrTop){
-				that.delayImg.push($(this));
-			}
-		});
-		that.run(that.delayImg);
-	},
-	imgObj:null,
-	delayImg:[],
-	run:function(delayImgs){
-		if(delayImgs.length == 0){
-			return;
-		}
-		for(var i = 0,len = delayImgs.length;i < len;i++){
-			delayImgs[i].attr("src",delayImgs[i].data("delay")).removeAttr("data-delay");
-		}
-		this.delayImg=[];
-	}
-};
 
-/**
- *动态加载js文件
- */
-im.zm.load = function(){
-	if(!arguments[0]){return;}
-	if(typeof arguments[0] == "string"){
-		createJs(arguments[0]);
-	}else{
-		for(var i = 0,lens = arguments[0].length; i < lens;i++){
-			createJs(arguments[0][i]);
-		}
-	}
-	function createJs(){
-		var script = document.createElement("SCRIPT");
-		script.setAttribute("type","text/javascript");
-		script.setAttribute("charset","utf-8");
-		script.setAttribute("src",arguments[0]);
-		document.getElementsByTagName("head")[0].appendChild(script);
-	}
-};
-
-/**
- *图片轮播 
- */
-im.zm.autoImg = {
-	timer:null,
-	scroll:!1,
-	width:500,//图片的宽度
-	index:0,//图片的索引，表示从哪张图开始
-	ele:null,//大图展示对象
-	objNum:null,//序号对象
-	curClass:'curImg',//当前状态样式
-	init:function(obj) {
-		this.scrollimg(obj);
-		var that=this;
-		this.objNum.each(function(index){
-			$(this).hover(function(){
-				that.scroll = !0;
-				clearTimeout(that.timer);
-				that.scrollimg({index:index});
-			},function(){
-				that.scroll = !1;
-				that.scrollimg({index:index});
-			});	
-		});
-	},
-	scrollimg:function(obj){
-		$.extend(this,obj);
-		var that=this;
-		var imgIndex=that.index;
-		var target=-that.width*imgIndex;
-		var imgNum=that.objNum.size();
-		if(imgIndex>imgNum-1) {
-			target=0;imgIndex=0;
-		}
-		that.ele.stop(true,true).animate({marginLeft:target},300);
-		that.objNum.removeClass();
-		that.objNum.eq(imgIndex).addClass(that.curClass);
-		if(imgIndex < imgNum){
-			imgIndex++;
-		}
-		if(!that.scroll) {
-			that.timer = setTimeout(function(){
-				that.scrollimg({index:imgIndex});
-			},3000);
-		}
-	}
-};
-/**
- * @(at)功能 
- */
-im.zm.getAutoUser = function(o){
-	var friendsData = [];
-	// 上面是数据
-	var config = {
-			boxID:"autoTalkBox",
-			valuepWrap:'autoTalkText',
-			wrap:'recipientsTips',
-			listWrap:"autoTipsUserList",
-			position:'autoUserTipsPosition',
-			positionHTML:'<span id="autoUserTipsPosition">&nbsp;123</span>',
-			className:'autoSelected'
-		};
-	var html = '<div id="autoTalkBox"style="z-index:-2000;top:$top$px;left:$left$px;width:$width$px;height:$height$px;z-index:1;position:absolute;scroll-top:$SCTOP$px;overflow:hidden;overflow-y:auto;visibility:hidden;word-break:break-all;word-wrap:break-word;*letter-spacing:0.6px;"><span id="autoTalkText"></span></div><div id="recipientsTips" class="atusers"><p>选择昵称或轻敲空格完成输入</p><ul id="autoTipsUserList"></ul></div>';
-	//var listHTML = '<li><a title="$ACCOUNT$" rel="$ID$" >$NAME$(@$SACCOUNT$)</a></li>';
-	var listHTML = '<li><a title="$ACCOUNT$" rel="$ID$" >$SACCOUNT$</a></li>';
-	
-	
-	/*
-	 * D 基本DOM操作
-	 * $(ID)
-	 * DC(tn) TagName
-	 * EA(a,b,c,e)
-	 * ER(a,b,c)
-	 * BS()
-	 * FF
-	 */
-	var D = {
-		$:function(ID){
-			return document.getElementById(ID);
-		},
-		DC:function(tn){
-			return document.createElement(tn);
-		},
-	    EA:function(a, b, c, e) {
-	        if (a.addEventListener) {
-	            if (b == "mousewheel") {
-	            	b = "DOMMouseScroll";
-	            }
-	            a.addEventListener(b, c, e);
-	            return true;
-	        } else {
-	        	return a.attachEvent ? a.attachEvent("on" + b, c) : false;
-	        }
-	    },
-	    ER:function(a, b, c) {
-	        if (a.removeEventListener) {
-	            a.removeEventListener(b, c, false);
-	            return true;
-	        } else{
-	        	return a.detachEvent ? a.detachEvent("on" + b, c) : false;
-	        } 
-	    },
-		BS:function(){
-			var db=document.body,
-				dd=document.documentElement,
-				top = db.scrollTop+dd.scrollTop,
-				left = db.scrollLeft+dd.scrollLeft;
-			return { 'top':top , 'left':left };
-		},
-		
-		FF:(function(){
-			var ua=navigator.userAgent.toLowerCase();
-			return /firefox\/([\d\.]+)/.test(ua);
-		})()
-	};
-	
-	/*
-	 * TT textarea 操作函数
-	 * info(t) 基本信息
-	 * getCursorPosition(t) 光标位置
-	 * setCursorPosition(t, p) 设置光标位置
-	 * add(t,txt) 添加内容到光标处
-	 */
-	var TT = {
-		info:function(t){
-			var o = t.getBoundingClientRect();
-			var w = t.offsetWidth;
-			var h = t.offsetHeight;
-			return {top:o.top, left:o.left, width:w, height:h};
-		},
-		getCursorPosition: function(t){
-			if (document.selection) {
-				t.focus();
-				var ds = document.selection;
-				var range = null;
-				range = ds.createRange();
-				var stored_range = range.duplicate();
-				stored_range.moveToElementText(t);
-				stored_range.setEndPoint("EndToEnd", range);
-				t.selectionStart = stored_range.text.length - range.text.length;
-				t.selectionEnd = t.selectionStart + range.text.length;
-				return t.selectionStart;
-			} else {
-				return t.selectionStart;
-			}
-		},
-		setCursorPosition:function(t, p){
-			var n = p == 'end' ? t.value.length : p;
-			if(document.selection){
-				var range = t.createTextRange();
-				range.moveEnd('character', -t.value.length);         
-				range.moveEnd('character', n);
-				range.moveStart('character', n);
-				range.select();
-			}else{
-				t.setSelectionRange(n,n);
-				t.focus();
-			}
-		},
-		add:function (t, txt){
-			var val = t.value;
-			var wrap = wrap || '' ;
-			if(document.selection){
-				document.selection.createRange().text = txt;  
-			} else {
-				var cp = t.selectionStart;
-				var ubbLength = t.value.length;
-				t.value = t.value.slice(0,t.selectionStart) + txt + t.value.slice(t.selectionStart, ubbLength);
-				this.setCursorPosition(t, cp + txt.length); 
-			};
-		},
-		del:function(t, n){
-			var p = this.getCursorPosition(t);
-			var s = t.scrollTop;
-			t.value = t.value.slice(0,p - n) + t.value.slice(p);
-			this.setCursorPosition(t ,p - n);
-			D.FF && setTimeout(function(){t.scrollTop = s;},10);
-		}
-	};
-	/*
-	 * DS 数据查找
-	 * inquiry(data, str, num) 数据, 关键词, 个数
-	 * 
-	 */
-	var DS = {
-		inquiry:function(data, str, num){
-			//if(str == '') return friendsData.slice(0, num);
-			var sd = [];
-			var i = 0;
-			if(str == ''){
-				while(sd.length < num && i < data.length){
-					sd.push(data[i]);
-					i++;
-				}	
-			}else{
-				var reg = new RegExp(str, 'i');
-				//var dataUserName = {};
-				while(sd.length < num && i < data.length){
-					//if(reg.test(data[i]['user'])){
-						sd.push(data[i]);
-						//dataUserName[data[i]['user']] = true;
-					//}
-					i++;
-				}	
-			}
-			return sd;
-		}
-	};
-	
-	/*
-	 * selectList
-	 * _this
-	 * index
-	 * list
-	 * selectIndex(code) code : e.keyCode
-	 * setSelected(ind) ind:Number
-	 */
-	var selectList = {
-		_this:null,
-		index:-1,
-		list:null,
-		selectIndex:function(code){
-			if(D.$(config.wrap).style.display == 'none'){
-				return true;
-			} 
-			var i = selectList.index;
-			switch(code){
-			   case 40:
-				 i = i + 1;
-				 break;
-			   case 38:
-				 i = i - 1;
-				 break;
-			   case 13:
-				return selectList._this.enter();
-				break;
-			}
-	
-			i = i >= selectList.list.length ? 0 : i < 0 ? selectList.list.length-1 : i;
-			return selectList.setSelected(i);
-		},
-		setSelected:function(ind){
-			if(selectList.index >= 0) selectList.list[selectList.index].className = '';
-			try{
-				selectList.list[ind].className = config.className;
-			}catch(e){}
-			selectList.index = ind;
-			return false;
-		}
-	
-	};
-	
-	/*
-	 *
-	 */
-	var AutoTips = function(A){
-		var elem = A.id ? D.$(A.id) : A.elem;
-		var checkLength = 5;
-		var _this = {};
-		var key = '';
-		_this.start = function(){
-			if(!D.$(config.boxID)){
-				var h = html.slice();
-				var info = TT.info(elem);
-				var div = D.DC('DIV');
-				var bs = D.BS();
-				h = h.replace('$top$',(info.top + bs.top)).
-						replace('$left$',(info.left + bs.left)).
-						replace('$width$',info.width).
-						replace('$height$',info.height).
-						replace('$SCTOP$','0');
-				div.innerHTML = h;
-				document.body.appendChild(div);
-			}else{
-				_this.updatePosstion();
-			}
-		};
-	  	_this.keyupFn = function(e){
-			var e = e || window.event;
-			if(e.type == "keyup"){
-				if(!e.keyCode){
-					return;
-				}
-			}
-			var code = e.keyCode;
-			if(code == 38 || code == 40 || code == 13) {
-				if(code==13 && D.$(config.wrap).style.display != 'none'){
-					_this.enter();
-				}
-				return false;
-			}
-			var cp = TT.getCursorPosition(elem);
-			if(!cp) {
-				return _this.hide();
-			}
-			var valuep = elem.value.slice(0, cp);
-			var val = valuep.slice(-checkLength);
-			//var chars = val.match(/(\w+)?@(\w|[\u4E00-\u9FA5\uF900-\uFA2D]+)$|@$/);
-			var chars = val.match(/(\w+)?@(\w+)|([\u4E00-\u9FA5\uF900-\uFA2D]+)$|@$/);
-			if(chars == null) {
-				return _this.hide();
-			}
-			//var b_char = chars[2] ? chars[2] : '';
-			var b_char;
-			if(chars[2]){
-				b_char = chars[2];
-			}else if(chars[3]){
-				b_char = chars[3];
-			}else{
-				b_char = "";
-			}
-			D.$(config.valuepWrap).innerHTML = valuep.slice(0,valuep.length - b_char.length).replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;') + config.positionHTML;
-			_this.showList(b_char);
-		};
-		_this.showList = function(b_char){
-			key = b_char;
-			//请求数据接口
-			$.ajax({
-				type:"get",
-				url:uri("URI_FANS_FRIENDS_NICKNAME", 10007),
-				data:{chars:key},
-				dataType:"json",
-				success:function(datas){
-					var friendsData = [];
-					for(var i = 0,len=datas.length;i<len;i++){
-						friendsData[i] = {};
-						friendsData[i].user = datas[i];
-						friendsData[i].name = datas[i];
-					}
-					var data = DS.inquiry(friendsData, b_char, 8);//显示数据的个数
-					var html = listHTML.slice();
-					var h = '';
-					var len = data.length;
-					if(len == 0){
-						_this.hide();
-						return;
-					}
-					var reg = new RegExp(b_char);
-					var em = '<em>'+ b_char +'</em>';
-					for(var i=0; i<len; i++){
-						var hm = data[i]['user'].replace(reg,em);
-						h += html.replace(/\$ACCOUNT\$|\$NAME\$/g,data[i]['name']).
-									replace('$SACCOUNT$',hm).replace('$ID$',data[i]['user']);
-					}
-					_this.updatePosstion();
-					var p = D.$(config.position).getBoundingClientRect();
-					var bs = D.BS();
-					var d = D.$(config.wrap).style;
-					d.top = p.top + 20 + bs.top + 'px';
-					d.left = p.left - 5 + 'px';
-					D.$(config.listWrap).innerHTML = h;
-					_this.show();
-				}
-			});
-		};
-		_this.KeyDown = function(e){
-			var e = e || window.event;
-			var code = e.keyCode;
-			if(code == 38 || code == 40 || code == 13){
-				return selectList.selectIndex(code);
-			}
-			return true;
-		};
-		_this.updatePosstion = function(){
-			var p = TT.info(elem);
-			var bs = D.BS();
-			var d = D.$(config.boxID).style;
-			d.top = p.top + bs.top +'px';
-			d.left = p.left + bs.left + 'px';
-			d.width = p.width+'px';
-			d.height = p.height+'px';
-			D.$(config.boxID).scrollTop = elem.scrollTop;
-		};
-		_this.show = function(){
-			selectList.list = D.$(config.listWrap).getElementsByTagName('li');
-			selectList.index = -1;
-			selectList._this = _this;
-			_this.cursorSelect(selectList.list);
-			elem.onkeydown = _this.KeyDown;
-			D.$(config.wrap).style.display = 'block';	
-			$("#autoTipsUserList li").die().live("click",function(){
-				TT.del(elem, key.length, key);
-				TT.add(elem, $(this).find("a").attr("title")+' ');
-				setTimeout(_this.hide, 100);
-				//_this.hide();
-			});
-		};
-		_this.cursorSelect = function(list){
-			for(var i=0; i<list.length; i++){
-				list[i].onmouseover = (function(i){
-					return function(){selectList.setSelected(i);};
-				})(i);
-				//list[i].onclick = _this.enter;
-			}
-		};
-		_this.hide = function(){
-			selectList.list = null;
-			selectList.index = -1;
-			selectList._this = null;
-			D.ER(elem, 'keydown', _this.KeyDown);
-			D.$(config.wrap).style.display = 'none';
-		};
-		_this.bind = function(){
-			elem.onkeyup = _this.keyupFn;
-			elem.onclick = _this.keyupFn;
-			elem.onblur = function(){
-				setTimeout(_this.hide, 300);
-			};
-			//elem.onkeyup= fn;
-			//D.EA(elem, 'keyup', _this.keyupFn, false)
-			//D.EA(elem, 'keyup', fn, false)
-			//D.EA(elem, 'click', _this.keyupFn, false);
-			//D.EA(elem, 'blur', function(){setTimeout(_this.hide, 100)}, false);
-		};
-		_this.enter = function(){
-			TT.del(elem, key.length, key);
-			TT.add(elem, selectList.list[selectList.index].getElementsByTagName('A')[0].rel+' ');
-			_this.hide();
-			return false;
-		};
-		return _this;
-	};
-	var userAutoTips = function(args){
-			var a = AutoTips(args);
-			a.start();
-			a.bind();
-	};
-	userAutoTips(o);
-};
