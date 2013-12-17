@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>win应用</title>
+        <meta name="keywords" content="win应用">
+        <meta name="description" content="win应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <link href="http://atp2.yokacdn.com/css/component/main.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.win.js"></script>
+    </head>
+    <body>
+        <br>
+        <span id="demo">abc</span>
+        <script type="text/javascript">
+            $(function(){
+                //$(document).win.alert("您的作文写得真棒。","ok");
+                $(document).win.confirmCenter($("#demo"),"提示的文字信息在这里。",function(){  alert(1); });
+                //$(document).win.confirm($("#demo"),"提示的文字信息在这里。",function(){  alert(1); },"down");
+                //$(document).win.posTips($("#demo"),"提示的文字信息在这里。","up","center",function(){},"");
+            });
+        </script>
+        
+    </body>
+</html>

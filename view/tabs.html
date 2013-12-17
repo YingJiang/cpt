@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>tabs应用</title>
+        <meta name="keywords" content="tabs应用">
+        <meta name="description" content="tabs应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.tabs.js"></script>
+        
+        <style type="text/css">
+            html,body{height:100%;}
+            .tabList{padding-left:10px;}
+            .tabList li{float:left;padding:5px 10px;font-size:12px;line-height:24px;cursor:pointer;list-style:none;border:1px #ccc solid;background-color:#f1f1f1;}
+            .tabList li.active{background:#fff;border-bottom:1px #fff solid;}
+            .tabContent{display:none;margin-top:-1px;padding:20px;border:1px #ccc solid;font-size:12px;line-height:24px;}
+            .clear{clear:both;}
+        </style>
+        
+    </head>
+    <body>
+        
+        <br/>
+        
+        <div>
+            <ul class="tabList">
+                <li class="active">标题1</li>
+                <li class="">标题2</li>
+                <li class="">标题3</li>
+                <li class="">标题4</li>
+            </ul>
+            <div class="clear"></div>
+            <div class="box">
+                <div class="tabContent" style="display: block;">内容一</div>
+                <div class="tabContent">内容二</div>
+                <div class="tabContent">内容三</div>
+                <div class="tabContent">内容四</div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+          var tabs = new $.fn.tab({
+                        tabList:".tabList li",  //tabs的头部title元素
+                        contentList:".box .tabContent",  //tabs的内容样式
+                        tabActiveClass:"active",  //tabs的激活样式
+                        tabDisableClass:"disable",  //tabs的隐藏样式
+                        eventType:"click",  //触发事件类型
+                        showType:"show",  //显示的效果
+                        showSpeed:200,  //显示效果的速度（毫秒）
+                        callBackStartEvent:null,  //事件触发开始时回调方法
+                        callBackHideEvent:null,  //当内容全部隐藏时回调方法
+                        callBackShowEvent:null  //当显示完当前tab内容时，回调方法
+                      });
+            tabs.triggleTab(3);
+        </script>
+        
+    </body>
+</html>

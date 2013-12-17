@@ -7,145 +7,22 @@
         <meta name="keywords" content="dialog应用">
         <meta name="description" content="dialog应用">
         <link href="../style/cnStyle.css" rel="stylesheet" />
-        <link href="http://atp2.yokacdn.com/css/component/main.css?000031" rel="stylesheet" />
         <script src="../scripts/jquery.min.js"></script>
         <script src="../scripts/k.dialog.js"></script>
-        <style type="text/css">
-            html,body{height:100%;}
-            .tabList{padding-left:10px;}
-            .tabList li{float:left;padding:5px 10px;font-size:12px;line-height:24px;cursor:pointer;list-style:none;border:1px #ccc solid;background-color:#f1f1f1;}
-            .tabList li.active{background:#fff;border-bottom:1px #fff solid;}
-            .tabContent{display:none;margin-top:-1px;padding:20px;border:1px #ccc solid;font-size:12px;line-height:24px;}
-            .clear{clear:both;}
-        </style>
     </head>
     <body>
-        <h2 id="showTimes"></h2>
-        <br><br><br><br><br><br><br><br><br><br>
         <div id="demo">abc</div>
-        <div>
-            <span>
-                <select id="sel">
-                    <option>请选择类型</option>
-                    <option value="101">学生</option>
-                    <option value="102">工人</option>
-                    <option value="103">农民</option>
-                    <option value="104">军人</option>
-                    <option value="105">儿童</option>
-                </select>
-            </span>
-        </div>
-        <br/>
-        <div>
-            <ul class="tabList">
-                <li class="active">标题1</li>
-                <li class="">标题2</li>
-                <li class="">标题3</li>
-                <li class="">标题4</li>
-            </ul>
-            <div class="clear"></div>
-            <div class="box">
-                <div class="tabContent" style="display: block;">内容一</div>
-                <div class="tabContent">内容二</div>
-                <div class="tabContent">内容三</div>
-                <div class="tabContent">内容四</div>
-            </div>
-        </div>
-        
-        <div class="def-banner re-sig-mag" id="js-ad-show12">
-            <div class="imgslide" id="js-imgslide-12">
-                            <a target="_blank" href="http://at.yoka.com/asjirogoes" title="本期新星作者推荐"><img src="http://atp4.yokacdn.com/20130730/27/2790467fa6d814aacb9b072e6aa72664.jpg" onerror="this.onerror=null;this.src='http://atp2.yokacdn.com/20120904/c3/c3939b50298f83a8e0a5cfde6fe8c6e6_855x300.jpg';" width="855" height="300" alt="本期新星作者推荐"/></a>
-                            <a target="_blank" href="http://fan.yoka.com/?fromid=at_jiaodian" title="本期新星作者推荐"><img src="http://atp1.yokacdn.com/20131210/3b/3b5d20a32de249dc1e22a99b454e5435.jpg" onerror="this.onerror=null;this.src='http://atp2.yokacdn.com/20120904/c3/c3939b50298f83a8e0a5cfde6fe8c6e6_855x300.jpg';" width="855" height="300" alt="本期新星作者推荐"/></a>
-                            <a target="_blank" href="http://at.yoka.com/user__6635063.html" title="本期新星作者推荐"><img src="http://atp1.yokacdn.com/20130730/4f/4f0e9715ccdd4d0f9cbb4e68e873f3c8.jpg" onerror="this.onerror=null;this.src='http://atp2.yokacdn.com/20120904/c3/c3939b50298f83a8e0a5cfde6fe8c6e6_855x300.jpg';" width="855" height="300" alt="本期新星作者推荐"/></a>
-                            <a target="_blank" href="http://at.yoka.com/user__6629004.html" title="本期新星作者推荐"><img src="http://atp3.yokacdn.com/20130730/ce/ce5af20613426ead56b8ba008cfb8a9d.jpg" onerror="this.onerror=null;this.src='http://atp2.yokacdn.com/20120904/c3/c3939b50298f83a8e0a5cfde6fe8c6e6_855x300.jpg';" width="855" height="300" alt="本期新星作者推荐"/></a>
-                            <a target="_blank" href="http://at.yoka.com/user__6638147.html" title="本期新星作者推荐"><img src="http://atp4.yokacdn.com/20130802/4a/4a632071cc5edc5bc5ff67e41fcc4f41.jpg" onerror="this.onerror=null;this.src='http://atp2.yokacdn.com/20120904/c3/c3939b50298f83a8e0a5cfde6fe8c6e6_855x300.jpg';" width="855" height="300" alt="本期新星作者推荐"/></a>
-                            
-            </div>
-            <div class="slidebt" id="js-slidebt" style="bottom:17px;">
-                <p class="a_left"></p>
-                <p class="a_center">
-                            <a href="javascript:;" class=""></a>
-                            <a href="javascript:;" class=""></a>
-                            <a href="javascript:;" class=""></a>
-                            <a href="javascript:;" class=""></a>
-                            <a href="javascript:;" class=""></a>
-                            </p>
-                <p class="a_right"></p>
-            </div>
-        </div>
-        <div class="clear"></div>
         <script type="text/javascript">
-            /**
-            $(function(){
-                $("#js-imgslide-12").doImages({
-                    imgs:$("#js-imgslide-12 img"),
-                    thumbs:$("#js-ad-show12 .slidebt  a"),
-                    num:0,
-                    thumbsClass:"curr",
-                    type:"click",
-                    auto:true,
-                    time:5000
-                });
-            });
-            */
-            
             $("#demo").dialog({
                 width: 500,       //宽度
-                height: 300,      //高度
+                height: 400,      //高度
                 open:!0,          //初始化是否显示
                 modal:!0,         //是否显示模态
                 show:"normal",    //显示的形式
-                html: '<div class="top"><span class="left title">新信息窗口</span></div><div class="body">Helo world.<br>...</div>',            //内容html
+                html: '<div class="top"><span class="left title">HELLO WORLD.</span></div><div class="body">Helo world.</div>',            //内容html
                 dialogClass:"dialog",    //dialog的样式
                 closeCallBack:null       //关闭回调函数
             });
-            
-            //$(document).win.alert("您的作文写得真棒。","ok");
-            //$(document).win.confirmCenter($("#demo"),"提示的文字信息在这里。",function(){  alert(1); });
-            //$(document).win.confirm($("#demo"),"提示的文字信息在这里。",function(){  alert(1); },"down");
-            //$(document).win.posTips($("#demo"),"提示的文字信息在这里。","up","center",function(){},"");
-            
-            //页签
-            /**
-            var sel = new $.fn.combox($("#sel"),{
-                        debug:!1,  //设置select可见
-                        allowAnyValue:false,  //是否可以输入
-                        position:"down",  //展示方向
-                        isSelect:!0,  //是否可以选择
-                        maxHeight:150,  //最大高度
-                        minWidth:240,  //最小宽度
-                        width:null,  //宽度
-                        addList:!1,  //是否有添加选项功能
-                        lock:!1,  //锁定，不可点击
-                        addListCallBack:null,  //添加选项回调函数
-                        selectCallBack:function(val){
-                            //console.log(sel.getValue($("#sel")));
-                        }   //选中回调函数
-                      });
-            
-            var tabs = new $.fn.tab({
-                        tabList:".tabList li",  //tabs的头部title元素
-                        contentList:".box .tabContent",  //tabs的内容样式
-                        tabActiveClass:"active",  //tabs的激活样式
-                        tabDisableClass:"disable",  //tabs的隐藏样式
-                        eventType:"click",  //触发事件类型
-                        showType:"show",  //显示的效果
-                        showSpeed:200,  //显示效果的速度（毫秒）
-                        callBackStartEvent:null,  //事件触发开始时回调方法
-                        callBackHideEvent:null,  //当内容全部隐藏时回调方法
-                        callBackShowEvent:null  //当显示完当前tab内容时，回调方法
-                      });
-            tabs.triggleTab(3);
-            
-            //倒计时
-            var showTimes = new $.fn.timeDown(1386905705213,1386906547598,100);
-            showTimes.atTime(function(){
-                $("#showTimes").html("到期了");
-            },function(d,h,m,s,ms){
-                $("#showTimes").html(d+"天"+h+"小时"+m+"分"+s+"秒"+ms+"毫秒");
-            });
-            */
         </script>
-        
     </body>
 </html>

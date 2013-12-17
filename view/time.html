@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>倒计时应用</title>
+        <meta name="keywords" content="倒计时应用">
+        <meta name="description" content="倒计时应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <link href="http://atp2.yokacdn.com/css/component/main.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.time.js"></script>
+    </head>
+    <body>
+        <br>
+        <h2 id="showTimes"></h2>
+        <script type="text/javascript">
+            $(function(){
+                //倒计时
+                var showTimes = new $.fn.timeDown(1386905705213,1386906547598,100);
+                showTimes.atTime(function(){
+                    $("#showTimes").html("到期了");
+                },function(d,h,m,s,ms){
+                    $("#showTimes").html(d+"天"+h+"小时"+m+"分"+s+"秒"+ms+"毫秒");
+                });
+            });
+        </script>
+        
+    </body>
+</html>
