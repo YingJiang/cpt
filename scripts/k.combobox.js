@@ -20,11 +20,7 @@
             chars = "...";
         }
         var diLen = lenStr(newStr) - num;
-        if (diLen > 0) {
-            resStr = cutStr(newStr, num) + chars;
-        } else {
-            resStr = newStr;
-        }
+        diLen > 0 ? resStr = cutStr(newStr, num) + chars : resStr = newStr;
         return resStr;
         function cutStr(str, num) {
             var n = 0;
@@ -46,11 +42,7 @@
         function lenStr(str) {
             var k = 0;
             for (var i = 0; i < str.length; i++) {
-                if (str.charCodeAt(i) > 255) {
-                    k += 2;
-                } else {
-                    k++;
-                }
+                str.charCodeAt(i) > 255 ? k += 2 : k++;
             }
             return k;
         }
@@ -309,12 +301,7 @@
                 }
             });
             function filter (str) {
-                str = str.replace(/&amp;/g, '&');
-                str = str.replace(/&lt;/g, '<');
-                str = str.replace(/&gt;/g, '>');
-                str = str.replace(/&acute;/g, '\'');
-                str = str.replace(/&quot;/g, '"');
-                str = str.replace(/&brvbar;/g, '\|');
+                str = str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&acute;/g, '\'').replace(/&quot;/g, '"').replace(/&brvbar;/g, '\|');
                 return str;
             }
         },
