@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>mousewheel应用</title>
+        <meta name="keywords" content="mousewheel应用">
+        <meta name="description" content="mousewheel应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.wheel.js"></script>
+        <style type="text/css">
+            .wbox .container h2,.wbox .container p{
+                padding:0 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wbox" id="wbox">
+            <div class="container">
+                <h2>Fluid height container without mouse-wheel support</h2>
+                <p>Aliquam erat volutpat. Maecenas non tortor nulla, non malesuada velit. Nullam felis tellus, tristique nec egestas in, luctus sed diam. Suspendisse potenti.</p>
+                <h2>If needed, scrollbar will scroll automatically to any element that has focus. Press the TAB key to test.</h2>
+                <p>consectetur adipiscing elit. Nulla consectetur libero consectetur quam consequat nec tincidunt massa feugiat. Donec egestas mi turpis. Fusce adipiscing dui eu metus gravida vel facilisis ligula iaculis. Cras a rhoncus massa. Donec sed purus eget nunc placerat consequat. Nulla facilisi. Nam vel augue odio, dignissim mattis dolor. Nullam at mi aliquet quam interdum consectetur. Duis tempus mauris in lorem dictum eget euismod urna aliquet. In vestibulum tempor porta.</p>
+                <h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2>
+                <p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p>
+                <h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2>
+                <p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p>
+                <h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2>
+                <p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p>
+                <h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2>
+                <p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p>
+                
+            </div>
+            <div class="scr-box">
+                
+                <div class="tt"><div class="scr"></div></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $("#wbox").wheel({
+                box:document.getElementById("wbox"),
+                scrBtn:$("#wbox .scr").eq(0),
+                container:$("#wbox .container").eq(0)
+            });
+        </script>
+        
+    </body>
+</html>

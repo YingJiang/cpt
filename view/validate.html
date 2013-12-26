@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>表单验证应用</title>
+        <meta name="keywords" content="表单验证应用">
+        <meta name="description" content="表单验证应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.validate.js"></script>
+        
+        <style type="text/css">
+            .form-txt {margin:100px 0 0 200px;}
+            .form-txt li {list-style:none; padding:15px 0; font-size:14px; color:#555;}
+            .form-txt li input { padding:5px 10px; border:1px #ccc solid; height:24px; line-height:24px;}
+            .form-txt li select{ border:1px #ccc solid;}
+        </style>
+    </head>
+    <body>
+        
+        <form action="/aciton.php" name="" method="post">
+            <ul class="form-txt">
+                <li>
+                    姓名： <input type="text" name="name" />
+                </li>
+                <li>
+                    性别： <input type="text" name="sex" />
+                </li>
+                <li>
+                    密码： <input type="password" name="sex" />
+                </li>
+                <li>
+                   职业：  <select>
+                        <option value="101">学生</option>
+                        <option value="102">老师</option>
+                        <option value="103">白领</option>
+                        <option value="104">国家干部</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="submit" value="提交" onclick="alert(this);"/>
+                </li>
+            </ul>
+            
+        </form>
+        <script type="text/javascript">
+         
+        </script>
+        
+    </body>
+</html>
