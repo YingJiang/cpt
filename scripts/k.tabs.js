@@ -22,7 +22,7 @@
             if($(_this.opts.tabList).length>0){
                 $(_this.opts.tabList).each(function(index){
                     $(this).bind(_this.opts.eventType,function(){
-                        if($.inArray(index,_this.disableArr)==-1&&(!isShow)&&$(this).attr("class").indexOf(_this.opts.tabActiveClass)==-1){
+                        if($.inArray(index,_this.disableArr) == -1 && !isShow && !$(this).hasClass(_this.opts.tabActiveClass)){
                             //开始时回调方法
                             if(_this.opts.callBackStartEvent){
                                 _this.opts.callBackStartEvent(index);
