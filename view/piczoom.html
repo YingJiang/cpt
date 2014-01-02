@@ -12,38 +12,107 @@
         <style type="text/css">
             .zoom-pic{
                 position:relative;
+                margin:100px auto 10px;
                 width:400px;
                 height:400px;
                 font-size:0;
-                border:1px #ccc solid;
             }
             .zoom-point{
                 position:absolute;
-                left:50px;
-                top:50px;
-                display:block;
+                display:none;
                 width:100px;
                 height:100px;
                 background-image:url(../images/zfont.png);
+                cursor:move;
             }
             .zoom-box{
                 position: absolute;
-                display:block;
-                width:400px;
-                height:400px;
+                display:none;
+                width:175px;
+                height:175px;
                 left:400px;
                 top:0;
                 z-index: 2;
                 border:1px #eee solid;
-                background:url(../images/temp/zoom-normal.png) -87px -87px no-repeat;
+                background-repeat:no-repeat;
+            }
+            .mini-box{
+                position:relative;
+                margin:0 auto;
+                padding:0 20px;
+                width:375px;
+                height:100px;
+                overflow:hidden;
+                border:1px #ccc solid;
+            }
+            .mini-box .prev,.mini-box .next{
+                position: absolute;
+                display:block;
+                top:0;
+                width:20px;
+                height:100px;
+                background-color:#f1f1f1;
+            }
+            .mini-box .prev{
+                left:0;
+            }
+            .mini-box .next{
+                right:0;
+            }
+            .mini-box .items-box{
+                height:100px;
+                overflow:hidden;
+            }
+            .mini-box ul{
+                width:9999px;
+            }
+            .mini-box ul li{
+                float:left;
+                margin-top:10px;
+                width:100px;
+                list-style:none;
+                overflow:hidden;
+            }
+            .mini-box ul li img{
+                border:1px #ccc solid;
+            }
+            .mini-box ul li.on img{
+                border:1px #f60 solid;
             }
         </style>
     </head>
     <body>
-        <div class="zoom-pic">
-            <img src="../images/temp/zoom-mini.png" data-src="../images/temp/zoom-normal.png"/>
-            <span class="zoom-point"></span>
-            <span class="zoom-box"></span>
+        <div class="zoom-pic" id="zoom-pic">
+            <img src="../images/temp/p1-m.png"/>
+            <span class="zoom-point" id="zoom-point"></span>
+            <span class="zoom-box" id="zoom-box"></span>
         </div>
+        <div class="mini-box" id="mini-box">
+            <a href="javascript:;" class="prev"></a>
+            <div class="items-box">
+                <ul class="items">
+                    <li  class="on"><a href="javascript:;" data-large="../images/temp/p1.png" data-mini="../images/temp/p1-m.png"><img src="../images/temp/p1-m.png" width="73" height="73"/></a></li>
+                    <li><a href="javascript:;" data-large="../images/temp/p2.png" data-mini="../images/temp/p2-m.png"><img src="../images/temp/p2-m.png" width="73" height="73"/></a></li>
+                    <li><a href="javascript:;" data-large="../images/temp/p3.png" data-mini="../images/temp/p3-m.png"><img src="../images/temp/p3-m.png" width="73" height="73"/></a></li>
+                    <li><a href="javascript:;" data-large="../images/temp/p1.png" data-mini="../images/temp/p1-m.png"><img src="../images/temp/p1-m.png" width="73" height="73"/></a></li>
+                    <li><a href="javascript:;" data-large="../images/temp/p2.png" data-mini="../images/temp/p2-m.png"><img src="../images/temp/p2-m.png" width="73" height="73"/></a></li>
+                    <li><a href="javascript:;" data-large="../images/temp/p3.png" data-mini="../images/temp/p3-m.png"><img src="../images/temp/p3-m.png" width="73" height="73"/></a></li>
+                </ul>
+            </div>
+            <a href="javascript:;" class="next"></a>
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                //商品放大
+                $("#zoom-pic").zoom({
+                    prop: 7/4,
+                    src: $("#zoom-point"),
+                    zoomObj: $("#zoom-box"),
+                    miniBox:$("#mini-box>.items-box"),
+                    prev:$("#mini-box>.prev"),
+                    next:$("#mini-box>.next")
+                });
+            });
+        </script>
     </body>
 </html>
