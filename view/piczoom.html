@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>at应用</title>
+        <meta name="keywords" content="at应用">
+        <meta name="description" content="at应用">
+        <link href="../style/cnStyle.css" rel="stylesheet" />
+        <script src="../scripts/jquery.min.js"></script>
+        <script src="../scripts/k.zoom.js"></script>
+        <style type="text/css">
+            .zoom-pic{
+                position:relative;
+                width:400px;
+                height:400px;
+                font-size:0;
+                border:1px #ccc solid;
+            }
+            .zoom-point{
+                position:absolute;
+                left:50px;
+                top:50px;
+                display:block;
+                width:100px;
+                height:100px;
+                background-image:url(../images/zfont.png);
+            }
+            .zoom-box{
+                position: absolute;
+                display:block;
+                width:400px;
+                height:400px;
+                left:400px;
+                top:0;
+                z-index: 2;
+                border:1px #eee solid;
+                background:url(../images/temp/zoom-normal.png) -87px -87px no-repeat;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="zoom-pic">
+            <img src="../images/temp/zoom-mini.png" data-src="../images/temp/zoom-normal.png"/>
+            <span class="zoom-point"></span>
+            <span class="zoom-box"></span>
+        </div>
+    </body>
+</html>
