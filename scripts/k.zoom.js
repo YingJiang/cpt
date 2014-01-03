@@ -77,8 +77,8 @@
            //下一张
            opts.next.bind("click",function(){
                if(parseInt(box.css("marginLeft"))-opts.miniBox.width() >= -sig * (opts.miniBox.find("li").length-1)){
-                   box.animate({marginLeft:"-="+sig},200,function(){
-                       
+                   box.stop(!0,!0).animate({marginLeft:"-="+sig},200,function(){
+                       endFront();
                    });
                }
            });
@@ -87,10 +87,8 @@
                if(parseInt(box.css("marginLeft")) >= 0){
                    return;
                }
-               console.log(parseInt(box.css("marginLeft"))-opts.miniBox.width());
-               console.log(-sig * (opts.miniBox.find("li").length-1));
-               box.animate({marginLeft:"+="+sig},200,function(){
-                   
+               box.stop(!0,!0).animate({marginLeft:"+="+sig},200,function(){
+                    endFront();
                });
            });
            //点击缩略图
@@ -101,7 +99,20 @@
                that.find("img").eq(0).attr("src",mSrc);
                zoomObj.css("background-image","url("+ bSrc +")");
            });
+           //初始化第一张显示
            opts.miniBox.find("li").eq(0).click();
-       } 
+           endFront();
+           
+           function endFront(){
+               var l =opts.miniBox.width() - parseInt(box.css("marginLeft"));
+               var lis = sig * (opts.miniBox.find("li").length-1);
+               if(lis < opts.miniBox.width()){
+                   opts.prev.hide();
+                   opts.next.hide();
+               }
+               l == opts.miniBox.width() ? opts.prev.addClass("un-prev") : opts.prev.removeClass("un-prev");
+               l > lis ? opts.next.addClass("un-next") : opts.next.removeClass("un-next");
+           }
+       }
     });
 })();
