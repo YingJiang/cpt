@@ -1,6 +1,9 @@
 /**
  * @author dingkai
  */
+/**
+ * 商品放大以及带缩略图滚动查看效果
+ **/
 ;(function(){
     $.extend($.fn,{
        zoom: function(options){

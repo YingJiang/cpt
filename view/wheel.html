@@ -16,7 +16,8 @@
         </style>
     </head>
     <body>
-        <div class="wbox" id="wbox">
+        <!-- 竖向滚动条 -->
+        <div id="wbox" class="wbox">
             <div class="container">
                 <h2>Fluid height container without mouse-wheel support</h2>
                 <p>Aliquam erat volutpat. Maecenas non tortor nulla, non malesuada velit. Nullam felis tellus, tristique nec egestas in, luctus sed diam. Suspendisse potenti.</p>
@@ -33,16 +34,50 @@
                 
             </div>
             <div class="scr-box">
-                
                 <div class="tt"><div class="scr"></div></div>
             </div>
         </div>
+        
+        <!-- 横向滚动条 -->
+        <div id="wbox-col" class="wbox wbox-col">
+            <div class="container">
+                <ul>
+                    <li><h2>Fluid height container without mouse-wheel support</h2></li>
+                    <li><p>Aliquam erat volutpat. Maecenas non tortor nulla, non malesuada velit. Nullam felis tellus, tristique nec egestas in, luctus sed diam. Suspendisse potenti.</p></li>
+                    <li><h2>If needed, scrollbar will scroll automatically to any element that has focus. Press the TAB key to test.</h2></li>
+                    <li><p>consectetur adipiscing elit. Nulla consectetur libero consectetur quam consequat nec tincidunt massa feugiat. Donec egestas mi turpis. Fusce adipiscing dui eu metus gravida vel facilisis ligula iaculis. Cras a rhoncus massa. Donec sed purus eget nunc placerat consequat. Nulla facilisi. Nam vel augue odio, dignissim mattis dolor. Nullam at mi aliquet quam interdum consectetur. Duis tempus mauris in lorem dictum eget euismod urna aliquet. In vestibulum tempor porta.</p></li>
+                    <li><h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2></li>
+                    <li><p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p></li>
+                    <li><h2>Aliquam erat volutpat. Maecenas non tortor nulla</h2></li>
+                    <li><p>Nullam non purus ligula, et tincidunt nulla. Aenean tincidunt, dui at elementum egestas, sem turpis volutpat turpis, nec congue purus quam quis ligula. Nam dictum rutrum pulvinar. Aenean sed cursus purus. Curabitur non dui eu nibh fermentum interdum a id dui. Fusce iaculis blandit tellus, nec tincidunt massa adipiscing id. Aliquam dui massa, porttitor eget molestie at, semper eu libero. Suspendisse sit amet velit et elit viverra convallis vitae ut turpis. Maecenas vehicula blandit odio sollicitudin eleifend. Curabitur molestie porta neque ac imperdiet.</p></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="scr-box">
+                <div class="tt"><div class="scr"></div></div>
+            </div>
+        </div>
+        
+        
+        
         <script type="text/javascript">
+            //默认为竖向滚动条
             $("#wbox").wheel({
                 box:document.getElementById("wbox"),
                 scrBtn:$("#wbox .scr").eq(0),
-                container:$("#wbox .container").eq(0)
+                container:$("#wbox .container").eq(0),
+                maxHeight:200
             });
+            
+            //横向滚动条
+            $("#wbox-col").wheel({
+                type:2,
+                box:document.getElementById("wbox-col"),
+                scrBtn:$("#wbox-col .scr").eq(0),
+                container:$("#wbox-col .container").eq(0),
+                maxWidth:500
+            });
+            
         </script>
         
     </body>
