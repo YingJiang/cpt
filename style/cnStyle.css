@@ -419,6 +419,7 @@ a.submitbtn:hover, span.submitbtn:hover {
     background-position: right center;
     background-repeat: no-repeat;
 }
+/**combobox*/
 .comboxDisable {
     display: inline-block;
     height: 20px;

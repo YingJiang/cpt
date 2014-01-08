@@ -11,7 +11,6 @@
         <script src="../scripts/k.dialog.js"></script>
     </head>
     <body>
-        <div id="demo">abc</div>
         <script type="text/javascript">
             $("#demo").dialog({
                 width: 500,       //宽度
@@ -19,7 +18,8 @@
                 open:!0,          //初始化是否显示
                 modal:!0,         //是否显示模态
                 show:"normal",    //显示的形式
-                html: '<div class="top"><span class="left title">HELLO WORLD.</span></div><div class="body">Helo world.</div>',            //内容html
+                url:"http://www.baidu.com",
+                html: '',            //内容html
                 dialogClass:"dialog",    //dialog的样式
                 closeCallBack:null       //关闭回调函数
             });
