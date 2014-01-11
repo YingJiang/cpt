@@ -11,7 +11,13 @@
      * Dialog组件
      */
     $.fn.dialog = function(para){
-        var _this = this;
+        var _this;
+		if(!this.length){
+			$("<div id="+ this.selector.substr(1) +"></div>").appendTo($("body")[0]);
+	        _this = $("#"+this.selector.substr(1));
+		}else{
+			_this = this;
+		}
         //默认传递参数
         var defaults = {
             title: "新信息窗口",  //标题
